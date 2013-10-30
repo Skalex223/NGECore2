@@ -41,7 +41,6 @@ import services.CharacterService;
 import services.ConnectionService;
 import services.EquipmentService;
 import services.GroupService;
-import services.LoginService;
 import services.PlayerService;
 import services.ScriptService;
 import services.SimulationService;
@@ -54,6 +53,8 @@ import services.command.CombatCommand;
 import services.command.CommandService;
 import services.gcw.GCWService;
 import services.guild.GuildService;
+import services.login.LocalDbLoginProvider;
+import services.login.LoginService;
 import services.map.MapService;
 import services.object.ObjectService;
 import services.object.UpdateService;
@@ -79,7 +80,9 @@ import engine.resources.database.ObjectDatabase;
 import engine.resources.objects.SWGObject;
 import engine.resources.scene.Point3D;
 import engine.resources.scene.Quaternion;
+import engine.resources.service.ILoginProvider;
 import engine.resources.service.NetworkDispatch;
+import engine.resources.service.VBLoginProvider;
 import engine.servers.MINAServer;
 import engine.servers.PingServer;
 
@@ -153,14 +156,24 @@ public class NGECore {
 		// Database
 		databaseConnection = new DatabaseConnection();
 		databaseConnection.connect(config.getString("DB.URL"), config.getString("DB.NAME"), config.getString("DB.USER"), config.getString("DB.PASS"), "postgresql");
+
+		ILoginProvider login;
+		if (config.getString("DB2.URL").matches("^\\s*$")) {
+			databaseConnection2 = null;
+			login = new LocalDbLoginProvider(databaseConnection);
+		} else {
+			databaseConnection2 = new DatabaseConnection();
+			databaseConnection2.connect(config.getString("DB2.URL"), config.getString("DB2.NAME"), config.getString("DB2.USER"), config.getString("DB2.PASS"), "mysql");
+			login = new VBLoginProvider(databaseConnection, databaseConnection2);
+		}
 		
-		databaseConnection2 = new DatabaseConnection();
 		setGalaxyStatus(1);
 		creatureODB = new ObjectDatabase("creature", true, false, true);
 		mailODB = new ObjectDatabase("mails", true, false, true);
 
+		
 		// Services
-		loginService = new LoginService(this);
+		loginService = new LoginService(this,login);
 		connectionService = new ConnectionService(this);
 		characterService = new CharacterService(this);
 		mapService = new MapService(this);
