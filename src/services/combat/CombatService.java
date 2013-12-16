@@ -1115,9 +1115,10 @@ public class CombatService implements INetworkDispatch {
 				baseArmor = target.getSkillMod("electricity").getBase();
 			case "poison":
 				baseArmor = target.getSkillMod("acid").getBase();
-			case "disease":	// disease damages action in nge
-				baseArmor = 0;
-			case "bleeding":	// elemental type unknown
+			case "disease":	// disease damages action in nge, cold armor per swg wiki
+				baseArmor = target.getSkillMod("cold").getBase();
+			case "bleeding": // bleeding, cold armor per swg wiki
+				baseArmor = target.getSkillMod("cold").getBase();
 			case "fire":
 				baseArmor = target.getSkillMod("heat").getBase();
 				
@@ -1132,8 +1133,7 @@ public class CombatService implements INetworkDispatch {
 		if(dot.getType().equals("disease")) {
 			target.setAction(target.getAction() - damage);
 			return;
-		}
-		
+		}	
 		applyDamage(attacker, target, damage);
 		
 	}

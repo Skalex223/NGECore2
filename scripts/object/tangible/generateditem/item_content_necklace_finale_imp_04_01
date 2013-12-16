@@ -1,0 +1,21 @@
+import sys
+#medal of the emperor's fist
+def setup(core, actor):
+	
+	object = core.objectService.createObject('object/tangible/wearables/necklace/shared_necklace_ace_pilot_empire.iff', actor.getPlanet())
+	object.setStfFilename('static_item_n')
+	object.setStfName('item_content_necklace_finale_imp_04_02')
+	object.setDetailFilename('static_item_d')
+	object.setDetailName('item_content_necklace_finale_imp_04_02')
+	object.setStringAttribute('condition', '100/100')
+	object.setIntAttribute('cat_stat_mod_bonus.@stat_n:agility_modified', 8)
+	object.setIntAttribute('cat_stat_mod_bonus.@stat_n:precision_modified', 8)
+	object.setIntAttribute('cat_stat_mod_bonus.@stat_n:constitution_modified', 8)
+	object.setIntAttribute('cat_stat_mod_bonus.@stat_n:luck_modified', 8)
+	object.setIntAttribute('cat_stat_mod_bonus.@stat_n:strength_modified', 8)
+	object.setIntAttribute('cat_stat_mod_bonus.@stat_n:stamina_modified', 8)
+	
+	inventory = actor.getSlottedObject('inventory')
+	inventory.add(object)
+		
+	return

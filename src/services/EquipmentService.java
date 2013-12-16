@@ -70,9 +70,22 @@ public class EquipmentService implements INetworkDispatch {
 			if(e.getKey().startsWith("cat_skill_mod_bonus.@stat_n:")) {
 				core.skillModService.addSkillMod(actor, e.getKey().replace("cat_skill_mod_bonus.@stat_n:", ""), Integer.parseInt((String) e.getValue()));
 			}
-			
+			if(e.getKey().startsWith("cat_stat_mod_bonus.@stat_n:")) {
+				core.skillModService.addSkillMod(actor, e.getKey().replace("cat_stat_mod_bonus.@stat_n:", ""), Integer.parseInt((String) e.getValue()));
+			}
+			//if(e.getKey().startsWith("cat_special_protection.elemental_")){
+			//	if(template.contains("helmet") || template.contains("chest") || template.contains("leggings")){
+			//		core.skillModService.addSkillMod(actor, e.getKey().replace("cat_special_protection.elemental_", ""), Integer.parseInt((String) e.getValue()));	
+			//}	 if(template.contains("bicep") || template.contains("bracer")){
+			//		core.skillModService.addSkillMod(actor, e.getKey().replace("cat_special_protection.elemental_", ""), Integer.parseInt((String) e.getValue()));
+			//}}
+			//if(e.getKey().startsWith("cat_standard_protection.")){
+			//	if(template.contains("helmet") || template.contains("chest") || template.contains("leggings")){
+			//		core.skillModService.addSkillMod(actor, e.getKey().replace("cat_standard_protection.", ""), Integer.parseInt((String) e.getValue()));	
+			//}	 if(template.contains("bicep") || template.contains("bracer")){
+			//		core.skillModService.addSkillMod(actor, e.getKey().replace("cat_standard_protection.", ""), Integer.parseInt((String) e.getValue()));
+			//}}
 		}
-		
 	}
 	
 	public void unequip(CreatureObject actor, SWGObject item) {
@@ -92,7 +105,22 @@ public class EquipmentService implements INetworkDispatch {
 			if(e.getKey().startsWith("cat_skill_mod_bonus.@stat_n:")) {
 				core.skillModService.deductSkillMod(actor, e.getKey().replace("cat_skill_mod_bonus.@stat_n:", ""), Integer.parseInt((String) e.getValue()));
 			}
-			
+			if(e.getKey().startsWith("cat_stat_mod_bonus.@stat_n:")) {
+				core.skillModService.deductSkillMod(actor, e.getKey().replace("cat_stat_mod_bonus.@stat_n:", ""), Integer.parseInt((String) e.getValue()));
+			}
+			//if(e.getKey().startsWith("cat_special_protection.elemental_")){
+			//	if(template.contains("helmet") || template.contains("chest") || template.contains("leggings")){
+			//		core.skillModService.deductSkillMod(actor, e.getKey().replace("cat_special_protection.elemental_", ""), Integer.parseInt((String) e.getValue()));	
+			//}	 if(template.contains("bicep") || template.contains("bracer")){
+			//		core.skillModService.deductSkillMod(actor, e.getKey().replace("cat_special_protection.elemental_", ""), Integer.parseInt((String) e.getValue()));
+			//}}	
+			//if(e.getKey().startsWith("cat_standard_protection.")){
+			//	if(template.contains("helmet") || template.contains("chest") || template.contains("leggings")){
+			//		core.skillModService.deductSkillMod(actor, e.getKey().replace("cat_standard_protection.", ""), Integer.parseInt((String) e.getValue()));	
+			//} 	if(template.contains("bicep") || template.contains("bracer")){
+			//		core.skillModService.deductSkillMod(actor, e.getKey().replace("cat_standard_protection.", ""), Integer.parseInt((String) e.getValue()));
+			//}}
+
 		}
 
 	}
